@@ -1,4 +1,16 @@
 # SudaLogin
 
 ## 0 Caption
-- A simple Andorid app that helps log into the Gatway of Soochow University(mainland, China).
+
+- A tiny Andorid app that brings logging into the Gatway of Soochow University*(mainland, China)* more easily.
+
+## 1 Introduction
+
+### 1.1  Features
+
+- **Auto Save** :  save userID and password automatically
+- **Smart Login** :  automatically login(when launching) if current account has been used frequently.
+
+### 1.2  Requirements
+
+- supports Android OS, from version 4.0 to 7.1
