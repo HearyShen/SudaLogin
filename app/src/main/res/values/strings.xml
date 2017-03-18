@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">朕的网络</string>
+    <string name="project_name">SudaLogin</string>
+    <string name="version">v1.2 beta</string>
     <string name="waiting_caption">waiting response...</string>
-    <string name="help_info">漫游免认证：网关将记忆MAC地址，当天无需重复登陆。\n\n自动记忆：自动记忆账户信息及设置；\n智能登陆：根据使用情况，自动登陆。\n\nAuthor: HearyShen\nE-mail: shenjiayun1996@126.com</string>
-    <string name="features_info"></string>
+
+    <string name="help_title">帮助</string>
+    <string name="help_info">漫游免认证：网关将记忆MAC地址，当天无需重复登陆。\n</string>
+
+    <string name="features_title">特性</string>
+    <string name="features_info">自动记忆：自动记忆账户信息及设置；\n智能登陆：根据使用情况，自动登陆。\n</string>
+
+    <string name="joiner_title">冠名及配图</string>
+    <string name="joiner_info">大作家：喵大人颜值高任性还挑食！\n</string>
+
+    <string name="author_title">开发者</string>
+    <string name="author_info">GitHub: HearyShen\nE-mail: shenjiayun1996@126.com\nBlog: heary.cn</string>
 </resources>

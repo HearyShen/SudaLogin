@@ -3,6 +3,7 @@ package com.demo.hearyshen.sudalogin;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,9 +61,8 @@ public class MainActivity extends AppCompatActivity {
             sw_macauth.setChecked(false);
 //            Toast.makeText(MainActivity.this, "默认未选", Toast.LENGTH_SHORT).show();
         }
-//        Toast.makeText(MainActivity.this, "账号记忆："+preferences.getString("username", "")+preferences.getString("enableMacAuth",""), Toast.LENGTH_SHORT).show();
+
         final int frequency = preferences.getInt("frequency",0);
-        //Toast.makeText(MainActivity.this, "登录次数: "+frequency, Toast.LENGTH_SHORT).show();
         if(frequency >= 2){
             Toast.makeText(MainActivity.this, "自动登录中", Toast.LENGTH_SHORT).show();
             tv_result.setText(R.string.waiting_caption);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             }.start();
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("frequency", frequency+1);
-            editor.commit();
+            editor.apply();     // 优化：apply自动优化写入时机，性能比占用同步资源的commit更好
         }
 
         btn_login = (Button) findViewById(R.id.btn_login);
@@ -86,27 +86,51 @@ public class MainActivity extends AppCompatActivity {
                 // 获取用户密码
                 final String userPass = et_password.getText().toString();
 
-                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(userPass)) {
-                    Toast.makeText(MainActivity.this, "用户名或者密码不能为空", Toast.LENGTH_LONG).show();
-                } else {
-                    //获得SharedPreferences对象
-                    SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
+                //获得SharedPreferences对象
+                SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                /*
+                * 分支逻辑：
+                * 1. 账号、密码齐全，则登陆并记忆；
+                * 2. 仅账号，则提示密码，并记忆账号；
+                * 3. 无账号，则清除记忆，并更新到UI。
+                * */
+                if (TextUtils.isEmpty(userName)) {
+                    Toast.makeText(MainActivity.this, "记忆已清除！", Toast.LENGTH_LONG).show();
+                    editor.clear();
+
+                    // 通过runOnUiThread方法进行修改主线程的控件内容
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_result.setText("记忆已清除");
+                            et_password.setText(null);
+                            sw_macauth.setChecked(false);
+                        }
+                    });
+                }
+                else if(TextUtils.isEmpty(userPass)) {
+                    et_password.setError("密码不能为空！");
+                    editor.putString("username", userName);
+                    editor.putString("password", null);
+                    editor.putString("enableMacAuth",sw_macauth.isChecked()?"1":"0");
+                    editor.putInt("frequency", 0);
+                }
+                else {
                     if(userName.compareTo(preferences.getString("username", "")) == 0) {    // 持续登陆(当前输入账号，和记忆的上一次登陆账号相同)，则记录登陆频数
                         editor.putInt("frequency", preferences.getInt("frequency",0) + 1);
                     }
                     else
                     {
+                        editor.putString("username", userName);
                         editor.putInt("frequency", 0);
                     }
-                    editor.putString("username", userName);
                     editor.putString("password", userPass);
                     editor.putString("enableMacAuth",sw_macauth.isChecked()?"1":"0");
-                    editor.commit();
 
                     Toast.makeText(MainActivity.this, "登陆请求已发送", Toast.LENGTH_SHORT).show();
                     tv_result.setText(R.string.waiting_caption);
-                    // 开启子线程
+                    // 开启子线程，处理网络IO
                         new Thread() {
                         public void run() {
                             loginByPost(userName, userPass); // 调用loginByPost方法
@@ -114,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     }.start();
 
                 }
+                editor.apply();     // 优化：apply自动优化写入时机，性能比占用同步资源的commit更好
             }
         });
 
@@ -142,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * POST请求操作
+     * POST请求操作，loginByPost通过POST请求，实现登陆功能
      *
      * @param userName
      * @param userPass
@@ -150,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
     public void loginByPost(String userName, String userPass) {
 
         try {
-
             // 请求的地址
             String spec = "http://a.suda.edu.cn/index.php/index/login";
             // 根据地址创建URL对象
@@ -178,10 +202,10 @@ public class MainActivity extends AppCompatActivity {
             urlConnection.setDoOutput(true); // 发送POST请求必须设置允许输出
             urlConnection.setDoInput(true); // 发送POST请求必须设置允许输入
             //setDoInput的默认值就是true
-            //获取输出流
+            //获取POST输出流
             OutputStream os = urlConnection.getOutputStream();
-            os.write(data.getBytes());
-            os.flush();
+            os.write(data.getBytes());  // 字节流
+            os.flush();     // 完整发送POST报文数据
 
             // 获取响应的输入流对象
             InputStream is = urlConnection.getInputStream();
@@ -192,12 +216,12 @@ public class MainActivity extends AppCompatActivity {
             // 定义缓冲区
             byte buffer[] = new byte[1024];
             // 按照缓冲区的大小，循环读取
-            while ((len = is.read(buffer)) != -1) {
+            while ((len = is.read(buffer)) != -1) { // InputStream --read-> buffer(byte[])
                 // 根据读取的长度写入到os对象中
-                baos.write(buffer, 0, len);
+                baos.write(buffer, 0, len);         // buffer(byte[]) --write-> ByteArrayOutputStream
             }
             // 返回字符串
-            final String result = baos.toString();
+            final String result = baos.toString();  // ByteArrayOutputStream -> String
 //                final String result = new String(baos.toByteArray());
 
             // 释放资源
@@ -230,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(result_print);
                 }
             });
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -306,16 +329,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void helpdialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage(R.string.help_info);
-        builder.setTitle("帮助");
-        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.create().show();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setMessage(R.string.help_info);
+//        builder.setTitle("帮助");
+//        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        builder.create().show();
+        Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+        startActivity(intent);
     }
 }
