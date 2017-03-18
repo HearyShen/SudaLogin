@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">朕的网络</string>
     <string name="project_name">SudaLogin</string>
-    <string name="version">v1.2 beta</string>
+    <string name="version">v1.2.1 beta</string>
     <string name="waiting_caption">waiting response...</string>
 
     <string name="help_title">帮助</string>
@@ -10,9 +10,12 @@
     <string name="features_title">特性</string>
     <string name="features_info">自动记忆：自动记忆账户信息及设置；\n智能登陆：根据使用情况，自动登陆。\n</string>
 
+    <string name="updates_title">更新日志</string>
+    <string name="updates_info">v1.2_Build20170318\n  1. 界面交互及操作逻辑改进;\n  2. 性能小幅优化(Preferences);\n  3. 新增"More"信息页\n  4. 细节改进（取消输入法自动弹出）\n\n  更多: github.com/HearyShen/SudaLogin/releases\n</string>
+
     <string name="joiner_title">冠名及配图</string>
     <string name="joiner_info">大作家：喵大人颜值高任性还挑食！\n</string>
 
     <string name="author_title">开发者</string>
-    <string name="author_info">GitHub: HearyShen\nE-mail: shenjiayun1996@126.com\nBlog: heary.cn</string>
+    <string name="author_info">GitHub: HearyShen\nE-mail: shenjiayun1996@126.com\nBlog: heary.cn\n</string>
 </resources>
