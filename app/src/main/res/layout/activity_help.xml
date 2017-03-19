@@ -78,6 +78,32 @@
                 android:text="@string/features_info"
                 android:textSize="17sp" />
 
+            <Switch
+                android:id="@+id/sw_autoSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自动记忆"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_autoSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自动记忆提示\n" />
+
+            <Switch
+                android:id="@+id/sw_smartLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="智能登陆"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_smartLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="智能登陆次数\n" />
+
             <TextView
                 android:id="@+id/tv_updatesTitle"
                 android:layout_width="match_parent"

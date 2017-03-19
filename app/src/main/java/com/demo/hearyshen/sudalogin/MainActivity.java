@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -41,40 +46,64 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // 通过 findViewById(id)方法获取用户名的控件对象
         et_username = (EditText) findViewById(R.id.et_username);
-        // 通过 findViewById(id)方法获取用户密码的控件对象
         et_password = (EditText) findViewById(R.id.et_password);
-
-        // 通过 findViewById(id)方法获取显示返回数据的控件对象
         tv_result = (TextView) findViewById(R.id.tv_result);
-
         sw_macauth = (Switch) findViewById(R.id.sw_macauth);
 
-        //获得SharedPreferences对象
+        //获得SharedPreferences对象，初始化显示信息
         final SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
         et_username.setText( preferences.getString("username", "") );
         et_password.setText( preferences.getString("password", "") );
         if( preferences.getString("enableMacAuth","").compareTo("1") == 0) {
             sw_macauth.setChecked(true);
-//            Toast.makeText(MainActivity.this, "默认勾选", Toast.LENGTH_SHORT).show();
         }
         else {
             sw_macauth.setChecked(false);
-//            Toast.makeText(MainActivity.this, "默认未选", Toast.LENGTH_SHORT).show();
         }
 
-        final int frequency = preferences.getInt("frequency",0);
-        if(frequency >= 2){
-            Toast.makeText(MainActivity.this, "自动登录中", Toast.LENGTH_SHORT).show();
-            tv_result.setText(R.string.waiting_caption);
-            // 开启子线程
-            new Thread() {
-                public void run() {
-                    loginByPost(preferences.getString("username",""), preferences.getString("password","")); // 调用loginByPost方法
-                };
-            }.start();
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("frequency", frequency+1);
-            editor.apply();     // 优化：apply自动优化写入时机，性能比占用同步资源的commit更好
+        /*
+        * SmartLogin 实现部分
+        * 根据enableSmartLogin判断是否开启
+        * 算法：根据账户连续登陆频数决定是否自动登陆
+        * */
+        if(preferences.getBoolean("enableSmartLogin",true)) {
+
+            WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if(wifiMgr.getWifiState()==WifiManager.WIFI_STATE_ENABLED) {    // 当且仅当WiFi开启，才继续检查
+                WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+                String wifiSSID = wifiInfo.getSSID();
+                //Toast.makeText(MainActivity.this, "wifi SSID=" + wifiSSID, Toast.LENGTH_SHORT).show();
+
+                if(wifiSSID.toLowerCase().contains("suda")) {   // 当且仅当连接苏大网时，才允许自动登录
+
+                    final int frequency = preferences.getInt("frequency", 0);
+                    if (frequency >= 2) {
+                        Toast.makeText(MainActivity.this, "智能登录", Toast.LENGTH_SHORT).show();
+                        String waiting_title = "正在连接"+wifiSSID+"\n";
+                        waiting_title = waiting_title.concat(getResources().getString(R.string.waiting_caption));
+                        tv_result.setText(waiting_title);
+                        // 开启子线程
+                        new Thread() {
+                            public void run() {
+                                loginByPost(preferences.getString("username", ""), preferences.getString("password", "")); // 调用loginByPost方法
+                            }
+
+                            ;
+                        }.start();
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("frequency", frequency + 1);
+                        editor.putInt("autoFrequency", preferences.getInt("autoFrequency",0) + 1);
+                        editor.apply();     // 优化：apply自动优化写入时机，性能比占用同步资源的commit更好
+                    }
+                }
+                else{
+                    tv_result.setText(R.string.notSudaWifi_caption);
+                }
+
+            }
+            else{
+                tv_result.setText(R.string.noWifi_caption);
+            }
         }
 
         btn_login = (Button) findViewById(R.id.btn_login);
@@ -138,6 +167,12 @@ public class MainActivity extends AppCompatActivity {
                     }.start();
 
                 }
+                if(preferences.getBoolean("enableAutoSave",true)==false){   //若未开启自动记忆，则不记录
+                    editor.putString("username", null);
+                    editor.putString("password", null);
+                    editor.putString("enableMacAuth","0");
+                    editor.putInt("frequency", 0);
+                }
                 editor.apply();     // 优化：apply自动优化写入时机，性能比占用同步资源的commit更好
             }
         });
@@ -164,6 +199,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /*
+    * 重载onPause()
+    * 实现自动保存
+    * */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //获得SharedPreferences对象
+        final SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
+        if(preferences.getBoolean("enableAutoSave",true)){
+            // 通过 findViewById(id)方法获取用户名的控件对象
+            et_username = (EditText) findViewById(R.id.et_username);
+            et_password = (EditText) findViewById(R.id.et_password);
+            sw_macauth = (Switch) findViewById(R.id.sw_macauth);
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("username", et_username.getText().toString());
+            editor.putString("password", et_password.getText().toString());
+            editor.putString("enableMacAuth",sw_macauth.isChecked()?"1":"0");
+
+            editor.apply();
+        }
+    }
+
+    /*
+    * 重载onRestart
+    * 实现设置更改后的页面更新
+    * */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //获得SharedPreferences对象
+        final SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
+
+        // 通过 findViewById(id)方法获取用户名的控件对象
+        et_username = (EditText) findViewById(R.id.et_username);
+        et_password = (EditText) findViewById(R.id.et_password);
+        sw_macauth = (Switch) findViewById(R.id.sw_macauth);
+
+        et_username.setText(preferences.getString("username",""));
+        et_password.setText(preferences.getString("password",""));
+        sw_macauth.setChecked( preferences.getString("enableMacAuth","0").compareTo("1")==0 );
     }
 
     /**

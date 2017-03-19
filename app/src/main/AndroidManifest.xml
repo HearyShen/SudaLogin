@@ -3,6 +3,7 @@
     package="com.demo.hearyshen.sudalogin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 
     <application
         android:allowBackup="true"

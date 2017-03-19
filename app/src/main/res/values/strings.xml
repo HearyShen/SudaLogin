@@ -1,21 +1,30 @@
 <resources>
     <string name="app_name">朕的网络</string>
     <string name="project_name">SudaLogin</string>
-    <string name="version">v1.2.1 beta</string>
-    <string name="waiting_caption">waiting response...</string>
+    <string name="version">v1.3 beta</string>
 
-    <string name="help_title">帮助</string>
+    <string name="noWifi_caption">未连接WiFi</string>
+    <string name="waiting_caption">等待响应...</string>
+    <string name="notSudaWifi_caption">当前Wi-Fi不是苏大网络(SSID)</string>
+
+    <string name="help_title">\n帮助</string>
     <string name="help_info">漫游免认证：网关将记忆MAC地址，当天无需重复登陆。\n</string>
 
-    <string name="features_title">特性</string>
+    <string name="features_title">\n特性</string>
     <string name="features_info">自动记忆：自动记忆账户信息及设置；\n智能登陆：根据使用情况，自动登陆。\n</string>
 
-    <string name="updates_title">更新日志</string>
-    <string name="updates_info">v1.2_Build20170318\n  1. 界面交互及操作逻辑改进;\n  2. 性能小幅优化(Preferences);\n  3. 新增"More"信息页\n  4. 细节改进（取消输入法自动弹出）\n\n  更多: github.com/HearyShen/SudaLogin/releases\n</string>
+    <string name="autoSave_tips_on">自动记忆已开启\n</string>
+    <string name="autoSave_tips_off">自动记忆已关闭，您的账号、密码及偏好数据不会被记录，智能登录已禁用\n</string>
 
-    <string name="joiner_title">冠名及配图</string>
+    <string name="smartLogin_tips_on">智能登录已开启\n</string>
+    <string name="smartLogin_tips_off">智能登录已关闭，请手动点击登陆按钮\n</string>
+
+    <string name="updates_title">\n更新日志</string>
+    <string name="updates_info">v1.3_Build20170319\n  1. 界面交互及操作逻辑改进;\n  2. 重载底层函数，程序细节完善;\n  3. 新增功能设置项\n\n  更多: github.com/HearyShen/SudaLogin/releases\n</string>
+
+    <string name="joiner_title">\n冠名及配图</string>
     <string name="joiner_info">大作家：喵大人颜值高任性还挑食！\n</string>
 
-    <string name="author_title">开发者</string>
+    <string name="author_title">\n开发者</string>
     <string name="author_info">GitHub: HearyShen\nE-mail: shenjiayun1996@126.com\nBlog: heary.cn\n</string>
 </resources>
