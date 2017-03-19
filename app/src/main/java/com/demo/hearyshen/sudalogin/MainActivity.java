@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.preference.Preference;
@@ -68,8 +69,14 @@ public class MainActivity extends AppCompatActivity {
         * */
         if(preferences.getBoolean("enableSmartLogin",true)) {
 
-            WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            if(wifiMgr.getWifiState()==WifiManager.WIFI_STATE_ENABLED) {    // 当且仅当WiFi开启，才继续检查
+            /* 获取连接信息（是否有活跃连接+是否通过WIFI连接+是否连接网络） */
+            ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            if(networkInfo!=null && networkInfo.getType()==ConnectivityManager.TYPE_WIFI && networkInfo.isConnected()) {    // 当且仅当WiFi开启，才继续检查  wifiMgr.getWifiState()==WifiManager.WIFI_STATE_ENABLED
+
+                /* 获取SSID */
+                WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
                 String wifiSSID = wifiInfo.getSSID();
                 //Toast.makeText(MainActivity.this, "wifi SSID=" + wifiSSID, Toast.LENGTH_SHORT).show();
@@ -167,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     }.start();
 
                 }
-                if(preferences.getBoolean("enableAutoSave",true)==false){   //若未开启自动记忆，则不记录
+                if(!preferences.getBoolean("enableAutoSave",true)){   //若未开启自动记忆，则不记录
                     editor.putString("username", null);
                     editor.putString("password", null);
                     editor.putString("enableMacAuth","0");

@@ -30,7 +30,9 @@ public class HelpActivity extends AppCompatActivity {
 
         sw_autoSave.setChecked( preferences.getBoolean("enableAutoSave",true) );   // 默认开启自动记忆
         tv_autoSave.setText(sw_autoSave.isChecked()?R.string.autoSave_tips_on:R.string.autoSave_tips_off);
-
+        /*
+        * 自动保存开关事件处理
+        * */
         sw_autoSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -57,19 +59,21 @@ public class HelpActivity extends AppCompatActivity {
                 editor.apply();
                 tv_autoSave.setText(sw_autoSave.isChecked()?R.string.autoSave_tips_on:R.string.autoSave_tips_off);
 
-                // 更新智能登陆相关显示
+                /*更新智能登陆相关显示*/
                 sw_smartLogin.setChecked( preferences.getBoolean("enableSmartLogin",true) );   // 默认开启智能登陆
-                String freq_count_str = "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
-                final String smartLogin_on_str = freq_count_str.concat(getResources().getString(R.string.smartLogin_tips_on));
+                final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
                 tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
             }
         });
 
+        /*更新智能登陆相关显示*/
         sw_smartLogin.setChecked( preferences.getBoolean("enableSmartLogin",true) );   // 默认开启智能登陆
-        String freq_count_str = "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
-        final String smartLogin_on_str = freq_count_str.concat(getResources().getString(R.string.smartLogin_tips_on));
+        final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
         tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
 
+        /*
+        * 智能登陆开关事件处理
+        * */
         sw_smartLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
