@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
                         // 开启子线程
                         new Thread() {
                             public void run() {
+                                logoutByPost(false);    // false表示不显示退出信息的显示
                                 loginByPost(preferences.getString("username", ""), preferences.getString("password", "")); // 调用loginByPost方法
                             }
 
-                            ;
                         }.start();
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putInt("frequency", frequency + 1);
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 // 开启子线程
                 new Thread() {
                     public void run() {
-                        logoutByPost(); // 调用loginByPost方法
+                        logoutByPost(true); // 调用loginByPost方法
                     };
                 }.start();
             }
@@ -377,9 +377,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * POST请求操作
-     *
+     * @param refreshView true时，刷新tv_result显示
      */
-    public void logoutByPost() {
+    public void logoutByPost(boolean refreshView) {
 
         try {
 
@@ -428,15 +428,17 @@ public class MainActivity extends AppCompatActivity {
                     result_print = jsobj.getString("info");
                 }
 
-                // 通过runOnUiThread方法进行修改主线程的控件内容
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv_result.setText(result_print);
-                        System.out.println(result);
-                        System.out.println(result_print);
-                    }
-                });
+                if(refreshView) {
+                    // 通过runOnUiThread方法进行修改主线程的控件内容
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_result.setText(result_print);
+                            System.out.println(result);
+                            System.out.println(result_print);
+                        }
+                    });
+                }
 
         } catch (Exception e) {
             e.printStackTrace();
