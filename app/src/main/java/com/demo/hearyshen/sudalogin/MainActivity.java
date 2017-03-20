@@ -11,10 +11,12 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.preference.Preference;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -114,6 +116,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         btn_login = (Button) findViewById(R.id.btn_login);
+        btn_login.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN) {
+                    v.setBackgroundColor(ContextCompat.getColor(MainActivity.this, android.R.color.holo_green_dark));
+                }
+                else if(event.getAction()==MotionEvent.ACTION_UP){
+                    v.setBackgroundColor(ContextCompat.getColor(MainActivity.this, android.R.color.holo_green_light));
+                }
+                return false;
+            }
+        });
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +199,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_logout = (Button) findViewById(R.id.btn_logout);
+        btn_logout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN) {
+                    v.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.darkgrey));
+                }
+                else if(event.getAction()==MotionEvent.ACTION_UP){
+                    v.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.gainsboro));
+                }
+                return false;
+            }
+        });
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +228,8 @@ public class MainActivity extends AppCompatActivity {
         btn_help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                helpdialog();
+                Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -415,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void helpdialog() {
+//    protected void helpdialog() {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 //        builder.setMessage(R.string.help_info);
 //        builder.setTitle("帮助");
@@ -427,7 +454,5 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //
 //        builder.create().show();
-        Intent intent = new Intent(MainActivity.this, HelpActivity.class);
-        startActivity(intent);
-    }
+//    }
 }
