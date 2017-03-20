@@ -1,5 +1,7 @@
 # SudaLogin
 
+**[Download Latest Releases](https://github.com/HearyShen/SudaLogin/releases)**
+
 ## 0 Caption
 
 - A tiny Andorid app that brings logging into the Gatway of Soochow University(mainland, China) more easily.
