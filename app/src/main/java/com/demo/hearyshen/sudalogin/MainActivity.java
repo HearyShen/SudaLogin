@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         et_password = (EditText) findViewById(R.id.et_password);
         tv_result = (TextView) findViewById(R.id.tv_result);
         sw_macauth = (Switch) findViewById(R.id.sw_macauth);
+        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_logout = (Button) findViewById(R.id.btn_logout);
+        btn_help = (Button) findViewById(R.id.btn_help);
 
         //获得SharedPreferences对象，初始化显示信息
         final SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        btn_login = (Button) findViewById(R.id.btn_login);
+
         btn_login.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -145,40 +148,31 @@ public class MainActivity extends AppCompatActivity {
                 * 2. 仅账号，则提示密码，并记忆账号；
                 * 3. 无账号，则清除记忆，并更新到UI。
                 * */
-                if (TextUtils.isEmpty(userName)) {
-                    Toast.makeText(MainActivity.this, "记忆已清除！", Toast.LENGTH_LONG).show();
-                    editor.clear();
 
-                    // 通过runOnUiThread方法进行修改主线程的控件内容
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tv_result.setText("记忆已清除");
-                            et_password.setText(null);
-                            sw_macauth.setChecked(false);
+                // 通过runOnUiThread方法进行修改主线程的控件内容
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (userName.isEmpty()) {
+                            et_username.setError(getString(R.string.username_error));
                         }
-                    });
-                }
-                else if(TextUtils.isEmpty(userPass)) {
-                    et_password.setError("密码不能为空！");
-                    editor.putString("username", userName);
-                    editor.putString("password", null);
-                    editor.putString("enableMacAuth",sw_macauth.isChecked()?"1":"0");
-                    editor.putInt("frequency", 0);
-                }
-                else {
+                        if (userPass.isEmpty()) {
+                            et_password.setError(getString(R.string.password_error));
+                        }
+                    }
+                });
+
+                if( (!userName.isEmpty()) && (!userPass.isEmpty()) ) {
                     if(userName.compareTo(preferences.getString("username", "")) == 0) {    // 持续登陆(当前输入账号，和记忆的上一次登陆账号相同)，则记录登陆频数
                         editor.putInt("frequency", preferences.getInt("frequency",0) + 1);
                     }
-                    else
+                    else    // 新账号登陆，计数器重置
                     {
-                        editor.putString("username", userName);
-                        editor.putInt("frequency", 0);
+                        editor.putInt("frequency", 1);
+                        editor.putInt("autoFrequency", 0);
                     }
-                    editor.putString("password", userPass);
-                    editor.putString("enableMacAuth",sw_macauth.isChecked()?"1":"0");
 
-                    Toast.makeText(MainActivity.this, "登陆请求已发送", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.login_sent_toast), Toast.LENGTH_SHORT).show();
                     tv_result.setText(R.string.waiting_caption);
                     // 开启子线程，处理网络IO
                         new Thread() {
@@ -193,12 +187,12 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("password", null);
                     editor.putString("enableMacAuth","0");
                     editor.putInt("frequency", 0);
+                    editor.putInt("autoFrequency", 0);
                 }
                 editor.apply();     // 优化：apply自动优化写入时机，性能比占用同步资源的commit更好
             }
         });
 
-        btn_logout = (Button) findViewById(R.id.btn_logout);
         btn_logout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -214,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "退出请求已发送", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.logout_sent_toast), Toast.LENGTH_SHORT).show();
                 // 开启子线程
                 new Thread() {
                     public void run() {
@@ -224,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_help = (Button) findViewById(R.id.btn_help);
+
         btn_help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,10 +232,12 @@ public class MainActivity extends AppCompatActivity {
     /*
     * 重载onPause()
     * 实现自动保存
+    * onPause()在程序结束、转后台和失去焦点时都会执行到
     * */
     @Override
     protected void onPause() {
         super.onPause();
+
         //获得SharedPreferences对象
         final SharedPreferences preferences = MainActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
         if(preferences.getBoolean("enableAutoSave",true)){
@@ -275,9 +271,14 @@ public class MainActivity extends AppCompatActivity {
         et_password = (EditText) findViewById(R.id.et_password);
         sw_macauth = (Switch) findViewById(R.id.sw_macauth);
 
-        et_username.setText(preferences.getString("username",""));
-        et_password.setText(preferences.getString("password",""));
-        sw_macauth.setChecked( preferences.getString("enableMacAuth","0").compareTo("1")==0 );
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                et_username.setText(preferences.getString("username",""));
+                et_password.setText(preferences.getString("password",""));
+                sw_macauth.setChecked( preferences.getString("enableMacAuth","0").compareTo("1")==0 );
+            }
+        });
     }
 
     /**

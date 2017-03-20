@@ -28,8 +28,27 @@ public class HelpActivity extends AppCompatActivity {
         //获得SharedPreferences对象
         final SharedPreferences preferences = HelpActivity.this.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
 
-        sw_autoSave.setChecked( preferences.getBoolean("enableAutoSave",true) );   // 默认开启自动记忆
-        tv_autoSave.setText(sw_autoSave.isChecked()?R.string.autoSave_tips_on:R.string.autoSave_tips_off);
+        // 通过runOnUiThread方法进行修改主线程的控件内容
+        HelpActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                /*更新自动保存相关显示*/
+                sw_autoSave.setChecked( preferences.getBoolean("enableAutoSave",true) );   // 默认开启自动记忆
+                tv_autoSave.setText(sw_autoSave.isChecked()?R.string.autoSave_tips_on:R.string.autoSave_tips_off);
+
+                /*更新智能登陆相关显示*/
+                sw_smartLogin.setChecked( preferences.getBoolean("enableSmartLogin",true) );   // 默认开启智能登陆
+                final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
+                tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
+
+                if( !preferences.getBoolean("enableAutoSave", true) ){
+                    sw_smartLogin.setChecked(false);
+                    sw_smartLogin.setEnabled(false);
+                    tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
+                }
+            }
+        });
+
         /*
         * 自动保存开关事件处理
         * */
@@ -51,25 +70,30 @@ public class HelpActivity extends AppCompatActivity {
                     editor.putString("password", null);
                     editor.putString("enableMacAuth","0");
                     editor.putInt("frequency", 0);
+                    editor.putInt("autoFrequency", 0);
 
                     editor.putBoolean("enableSmartLogin", false);
                     sw_smartLogin.setChecked(false);
                     sw_smartLogin.setEnabled(false);
                 }
                 editor.apply();
-                tv_autoSave.setText(sw_autoSave.isChecked()?R.string.autoSave_tips_on:R.string.autoSave_tips_off);
 
-                /*更新智能登陆相关显示*/
-                sw_smartLogin.setChecked( preferences.getBoolean("enableSmartLogin",true) );   // 默认开启智能登陆
-                final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
-                tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
+                // 通过runOnUiThread方法进行修改主线程的控件内容
+                HelpActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /*更新自动保存相关显示*/
+                        tv_autoSave.setText(sw_autoSave.isChecked()?R.string.autoSave_tips_on:R.string.autoSave_tips_off);
+
+                        /*更新智能登陆相关显示*/
+                        sw_smartLogin.setChecked( preferences.getBoolean("enableSmartLogin",true) );   // 默认开启智能登陆
+                        final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
+                        tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
+                    }
+                });
             }
         });
 
-        /*更新智能登陆相关显示*/
-        sw_smartLogin.setChecked( preferences.getBoolean("enableSmartLogin",true) );   // 默认开启智能登陆
-        final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
-        tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
 
         /*
         * 智能登陆开关事件处理
@@ -87,14 +111,11 @@ public class HelpActivity extends AppCompatActivity {
                     editor.putBoolean("enableSmartLogin", false);
                 }
                 editor.apply();
+                /*更新智能登陆相关显示*/
+                final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
                 tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
             }
         });
 
-        if( !preferences.getBoolean("enableAutoSave", true) ){
-            sw_smartLogin.setChecked(false);
-            sw_smartLogin.setEnabled(false);
-            tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
-        }
     }
 }

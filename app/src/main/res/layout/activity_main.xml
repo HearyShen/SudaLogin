@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -20,22 +21,19 @@
             android:id="@+id/Input_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
                 android:layout_marginTop="40dp"
                 android:ems="10"
-                android:hint="账号"
+                android:hint="@string/username_hint"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -43,15 +41,12 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/et_username"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="密码"
+                android:hint="@string/password_hint"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -59,77 +54,63 @@
                 android:id="@+id/sw_macauth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/et_password"
                 android:layout_marginTop="15dp"
                 android:checked="false"
-                android:splitTrack="false"
-                android:text="漫游免认证"
+                android:text="@string/macAuth_title"
                 android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/Control_form"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/login_btn_caption"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_below="@id/Login_form"
+        android:layout_marginTop="36dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginTop="4dp"
+        android:background="@color/gainsboro"
+        android:text="@string/logout_btn_caption"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btn_help"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btn_logout"
+        android:layout_marginTop="90dp"
+        android:text="@string/helo_btn_caption"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ready_caption"
+        android:textSize="15sp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/Login_form">
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="55dp"
-            android:background="@android:color/holo_green_light"
-            android:text="登陆"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/btn_login"
-            android:layout_alignStart="@+id/btn_login"
-            android:layout_below="@+id/btn_login"
-            android:layout_marginTop="4dp"
-            android:background="@color/gainsboro"
-            android:text="注销"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_help"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_result"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:text="More"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:text="READY"
-            android:textSize="15sp" />
-        <!--android:layout_toLeftOf="@+id/btn_help"-->
-        <!--android:layout_toStartOf="@+id/btn_help"-->
-    </RelativeLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

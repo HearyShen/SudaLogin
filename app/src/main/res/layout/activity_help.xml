@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -44,6 +44,7 @@
                 android:id="@+id/imgv_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/icon_caption"
                 app:srcCompat="@drawable/anim_icon" />
 
             <TextView
@@ -82,27 +83,27 @@
                 android:id="@+id/sw_autoSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="自动记忆"
+                android:text="@string/autoSave_title"
                 android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tv_autoSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="自动记忆提示\n" />
+                android:text="@string/autoSave_caption" />
 
             <Switch
                 android:id="@+id/sw_smartLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="智能登陆"
+                android:text="@string/smartLogin_title"
                 android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tv_smartLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="智能登陆次数\n" />
+                android:text="@string/smartLogin_caption" />
 
             <TextView
                 android:id="@+id/tv_updatesTitle"
