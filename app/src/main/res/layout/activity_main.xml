@@ -82,26 +82,27 @@
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="53dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="55dp"
             android:background="@android:color/holo_green_light"
             android:text="登陆"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn_login"
+            android:layout_alignStart="@+id/btn_login"
+            android:layout_below="@+id/btn_login"
+            android:layout_marginTop="4dp"
             android:background="@color/gainsboro"
             android:text="注销"
-            android:textSize="16sp"
-            android:layout_below="@+id/btn_login"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_help"
