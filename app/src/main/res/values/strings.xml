@@ -43,7 +43,7 @@
     <string name="smartLogin_tips_off">智能登录已关闭，请手动点击登陆按钮\n</string>
 
     <string name="updates_title">\n更新日志</string>
-    <string name="updates_info">v1.3_Build20170319\n  1. 界面交互及操作逻辑改进;\n  2. 重载底层函数，完善程序细节;\n  3. 新增功能设置项\n\n  更多: github.com/HearyShen/SudaLogin/releases\n</string>
+    <string name="updates_info">v1.3_Build20170320\n  1. 界面交互及操作逻辑改进；\n  2. 重载底层函数，完善程序细节；\n  3. 新增功能设置项；\n  4. 内测用户【大作家】改进了字体及排版设计\n\n  更多: github.com/HearyShen/SudaLogin/releases\n</string>
 
     <string name="joiner_title">\n冠名及配图</string>
     <string name="joiner_info">大作家：喵大人颜值高任性还挑食！\n</string>
