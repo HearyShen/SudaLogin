@@ -1,6 +1,6 @@
 # SudaLogin
 
-**[Download Latest Releases](https://github.com/HearyShen/SudaLogin/releases)**
+**[Download Latest Release](https://github.com/HearyShen/SudaLogin/releases)**
 
 ## 0 Caption
 
