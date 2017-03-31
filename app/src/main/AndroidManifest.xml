@@ -2,9 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.demo.hearyshen.sudalogin">
 
+    <!--网络的通信权限-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!--网络类型及状态-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--创建快捷方式权限-->
+    <uses-permission android:name="com.android.launcher.permission.CREATE_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
 
     <application
         android:allowBackup="true"
@@ -18,8 +24,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"
-            >
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +34,19 @@
 
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
+        <activity
+            android:name=".OnetouchActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay"
+            >
+            <!--android:theme="@android:style/Theme.NoDisplay"-->
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
         </activity>
 
     </application>

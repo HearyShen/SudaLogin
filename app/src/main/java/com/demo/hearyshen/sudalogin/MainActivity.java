@@ -1,20 +1,15 @@
 package com.demo.hearyshen.sudalogin;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.preference.Preference;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
@@ -90,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
                     final int frequency = preferences.getInt("frequency", 0);
                     if (frequency >= 2) {
-                        Toast.makeText(MainActivity.this, "智能登录", Toast.LENGTH_SHORT).show();
-                        String waiting_title = "正在连接"+wifiSSID+"\n";
+                        Toast.makeText(MainActivity.this, getString(R.string.smartLogin_toast), Toast.LENGTH_SHORT).show();
+                        String waiting_title = getString(R.string.connecting_caption)+wifiSSID+"\n";
                         waiting_title = waiting_title.concat(getResources().getString(R.string.waiting_caption));
                         tv_result.setText(waiting_title);
                         // 开启子线程

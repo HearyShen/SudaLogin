@@ -44,9 +44,19 @@
             <ImageView
                 android:id="@+id/imgv_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="355dp"
                 android:contentDescription="@string/icon_caption"
                 app:srcCompat="@drawable/anim_icon" />
+
+            <TextView
+                android:id="@+id/tv_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/caption"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:textSize="17sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/tv_helpTitle"
@@ -105,6 +115,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/smartLogin_caption" />
+
+            <TextView
+                android:id="@+id/tv_oneTouch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/oneTouchLogin_title"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_oneTouch_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/oneTouchLogin_caption" />
+
+            <Button
+                android:id="@+id/btn_oneTouch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:elevation="0dp"
+                android:text="@string/oneTouchLogin_install"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_updatesTitle"
