@@ -12,6 +12,7 @@
 
 - **Auto Save** :  save userID, password and configuration automatically.
 - **Smart Login** :  automatically login(when launching) if current account has been used frequently.
+- **OneTouch** :  create a shortcut and quickly login without even rendering GUI window. ***[NEW]***
 
 ### 1.2  Requirements
 
