@@ -19,4 +19,4 @@
 - supports Android OS, from version 4.0 to 7.1
 
 ### 1.3  Known Issues
-1. OneTouch Login fails to make toast to display response infomation on Huawei EMUI system (due to Huawei's changes to Android OS).
+1. OneTouch Login fails to make toast to display response infomation on Huawei EMUI (due to Huawei's changes to Android OS).
