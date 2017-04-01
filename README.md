@@ -1,6 +1,7 @@
 # SudaLogin
 
 **[Download Latest Release](https://github.com/HearyShen/SudaLogin/releases)**
+**[Blog Post](https://heary.cn/index.php/archives/44/)**
 
 ## 0 Caption
 
