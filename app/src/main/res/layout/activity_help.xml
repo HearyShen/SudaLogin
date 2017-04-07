@@ -92,10 +92,21 @@
                 android:text="@string/features_info"
                 android:textSize="17sp" />
 
+            <TextView
+                android:id="@+id/tv_settingsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title"
+                android:textColor="@android:color/background_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
             <Switch
                 android:id="@+id/sw_autoSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:text="@string/autoSave_title"
                 android:textSize="17sp" />
 
@@ -103,12 +114,16 @@
                 android:id="@+id/tv_autoSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:text="@string/autoSave_caption" />
 
             <Switch
                 android:id="@+id/sw_smartLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:text="@string/smartLogin_title"
                 android:textSize="17sp" />
 
@@ -116,6 +131,8 @@
                 android:id="@+id/tv_smartLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:text="@string/smartLogin_caption" />
 
             <Switch
@@ -170,6 +187,8 @@
                 android:id="@+id/btn_oneTouch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_gravity="end"
                 android:text="@string/oneTouchLogin_install"
                 android:textAlignment="center"
