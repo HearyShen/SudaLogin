@@ -11,8 +11,8 @@
     <string name="password_error">密码不能为空</string>
 
     <string name="macAuth_title">漫游免认证</string>
-    <string name="login_btn_caption">登录</string>
-    <string name="logout_btn_caption">注销</string>
+    <string name="login_btn_caption"> 登 录 </string>
+    <string name="logout_btn_caption"> 注 销 </string>
     <string name="helo_btn_caption">More</string>
 
     <string name="login_sent_toast">登录请求已发送</string>
@@ -33,7 +33,13 @@
     <string name="help_info">漫游免认证：网关将记忆MAC地址，当天无需重复登录。\n</string>
 
     <string name="features_title">\n特性</string>
-    <string name="features_info">自动记忆：自动记忆账户信息及设置；\n智能登录：记录使用情况，自动登录；\n一键登录：添加桌面快捷方式；\n开机启动：开机自动登网关（需权限）；\n </string>
+    <string name="features_info">
+        <b>自动记忆</b>：自动记忆账户信息及设置；\n
+        <b>智能登录</b>：记录使用情况，自动登录；\n
+        <b>开机启动</b>：开机自动登网关（需权限）；\n
+        <b>网络感知</b>：感应网络变化，自动保持认证；\n
+        <b>一键登录</b>：添加桌面快捷方式；\n\n
+    </string>
 
     <string name="autoSave_title">自动记忆</string>
     <string name="autoSave_caption">自动记忆说明</string>
@@ -48,12 +54,12 @@
     <string name="bootLogin_title">开机启动</string>
     <string name="bootLogin_caption">开机启动，自动登录网关\n</string>
     <string name="bootLogin_tips_on">开机启动已开启\n</string>
-    <string name="bootLogin_tips_off">开机启动已关闭，请手动点击登录按钮\n</string>
+    <string name="bootLogin_tips_off">开机启动已关闭\n</string>
 
-    <string name="netchangeLogin_title">网络变化感知</string>
-    <string name="netchangeLogin_caption">网络变化感知开发中\n</string>
-    <string name="netchangeLogin_tips_on">网络变化感知已开启\n</string>
-    <string name="netchangeLogin_tips_off">网络变化感知已关闭，请手动点击登录按钮\n</string>
+    <string name="netchangeLogin_title">网络感知</string>
+    <string name="netchangeLogin_caption">网络感知，感应网络状态变化\n</string>
+    <string name="netchangeLogin_tips_on">网络感知已开启\n</string>
+    <string name="netchangeLogin_tips_off">网络感知已关闭\n</string>
 
     <string name="oneTouchLogin_title">一键登录</string>
     <string name="oneTouchLogin_caption">一键登录说明</string>
@@ -61,11 +67,20 @@
     <string name="oneTouchLogin_installing">已创建一键登录</string>
 
     <string name="updates_title">\n更新日志</string>
-    <string name="updates_info">v1.5-beta_build20170407\n  1. 新功能“开机自启”，开机自动搞定，解放双手！；\n  2. 细节优化；\n  3. Bug Fixes；\n\n  获取更新： https://github.com/HearyShen/SudaLogin/releases\n</string>
+    <string name="updates_info">v1.5-beta_build20170407\n
+        1. 新功能<b>“开机自启”</b>，每日随手机开机自动登录；\n
+        2. 新功能<b>“网络感知”</b>，感知网络状态变化，自动保持认证连接；\n
+        3. Bug Fixes；\n\n
+        获取更新： https://github.com/HearyShen/SudaLogin/releases\n
+    </string>
 
     <string name="joiner_title">\n冠名及配图</string>
     <string name="joiner_info">大作家：喵大人颜值高任性还挑食！\n</string>
 
     <string name="author_title">\n开发者</string>
-    <string name="author_info">GitHub： HearyShen\nE-mail： shenjiayun1996@126.com\nBlog： https://heary.cn\n</string>
+    <string name="author_info">
+        <b>GitHub</b>： <a href="https://github.com/HearyShen/" target="_blank">HearyShen</a>\n
+        <b>E-mail</b>： shenjiayun1996@126.com\n
+        <b>Blog</b>： https://heary.cn\n
+    </string>
 </resources>

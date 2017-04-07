@@ -22,6 +22,9 @@ public class BootReceiver extends BroadcastReceiver {
             Toast.makeText(context, "从BootCompleted启动", Toast.LENGTH_SHORT).show();
             Intent mainintent = new Intent(context, MainActivity.class);
             context.startActivity(mainintent);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("bootLoginFrequency", prefs.getInt("bootLoginFrequency",0)+1);
+            editor.apply();
         }
     }
 
