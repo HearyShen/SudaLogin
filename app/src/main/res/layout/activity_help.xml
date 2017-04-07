@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.demo.hearyshen.sudalogin.HelpActivity">
-
+    
     <ScrollView
         android:id="@+id/MoreInfo_form"
         android:layout_width="match_parent"

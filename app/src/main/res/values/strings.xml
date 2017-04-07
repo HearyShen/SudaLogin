@@ -38,16 +38,18 @@
         <b>智能登录</b>：记录使用情况，自动登录；\n
         <b>开机启动</b>：开机自动登网关（需权限）；\n
         <b>网络感知</b>：感应网络变化，自动保持认证；\n
-        <b>一键登录</b>：添加桌面快捷方式；\n\n
+        <b>一键登录</b>：添加桌面快捷方式；\n
     </string>
 
+    <string name="settings_title">\n设置</string>
+
     <string name="autoSave_title">自动记忆</string>
-    <string name="autoSave_caption">自动记忆说明</string>
+    <string name="autoSave_caption">自动记忆说明\n</string>
     <string name="autoSave_tips_on">自动记忆已开启\n</string>
     <string name="autoSave_tips_off">自动记忆已关闭，您的账号、密码及偏好数据不会被记录，智能登录已禁用\n</string>
 
     <string name="smartLogin_title">智能登录</string>
-    <string name="smartLogin_caption">智能登录说明</string>
+    <string name="smartLogin_caption">智能登录说明\n</string>
     <string name="smartLogin_tips_on">智能登录已开启\n</string>
     <string name="smartLogin_tips_off">智能登录已关闭，请手动点击登录按钮\n</string>
 
@@ -67,7 +69,8 @@
     <string name="oneTouchLogin_installing">已创建一键登录</string>
 
     <string name="updates_title">\n更新日志</string>
-    <string name="updates_info">v1.5-beta_build20170407\n
+    <string name="updates_info">
+        v1.5-beta_build20170407\n
         1. 新功能<b>“开机自启”</b>，每日随手机开机自动登录；\n
         2. 新功能<b>“网络感知”</b>，感知网络状态变化，自动保持认证连接；\n
         3. Bug Fixes；\n\n
