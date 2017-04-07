@@ -2,15 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.demo.hearyshen.sudalogin">
 
-    <!--网络的通信权限-->
+    <!-- 网络的通信权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--网络类型及状态-->
+    <!-- 网络类型及状态 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--创建快捷方式权限-->
+    <!-- 创建快捷方式权限 -->
     <uses-permission android:name="com.android.launcher.permission.CREATE_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-
+    <!-- 获悉开机启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -31,23 +32,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name=".OnetouchActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.NoDisplay"
-            >
-            <!--android:theme="@android:style/Theme.NoDisplay"-->
+            android:theme="@android:style/Theme.NoDisplay">
+
+            <!-- android:theme="@android:style/Theme.NoDisplay" -->
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
+            </intent-filter>
+        </receiver>
 
     </application>
 

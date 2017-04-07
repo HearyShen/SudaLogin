@@ -16,8 +16,8 @@ import org.w3c.dom.Text;
 
 public class HelpActivity extends AppCompatActivity {
 
-    private Switch sw_smartLogin, sw_autoSave;
-    private TextView tv_smartLogin, tv_autoSave, tv_oneTouch_caption;
+    private Switch sw_smartLogin, sw_autoSave, sw_bootLogin, sw_netchangeLogin;
+    private TextView tv_smartLogin, tv_bootLogin, tv_netchangeLogin, tv_autoSave, tv_oneTouch_caption;
     private Button btn_oneTouch;
 
     @Override
@@ -29,6 +29,10 @@ public class HelpActivity extends AppCompatActivity {
         tv_autoSave = (TextView) findViewById(R.id.tv_autoSave);
         sw_smartLogin = (Switch) findViewById(R.id.sw_smartLogin);
         tv_smartLogin = (TextView) findViewById(R.id.tv_smartLogin);
+        sw_bootLogin = (Switch) findViewById(R.id.sw_bootLogin);
+        tv_bootLogin = (TextView) findViewById(R.id.tv_bootLogin);
+        sw_netchangeLogin = (Switch) findViewById(R.id.sw_netchangeLogin);
+        tv_netchangeLogin = (TextView) findViewById(R.id.tv_netchangeLogin);
         tv_oneTouch_caption = (TextView) findViewById(R.id.tv_oneTouch_caption);
         btn_oneTouch = (Button) findViewById(R.id.btn_oneTouch);
 
@@ -48,6 +52,13 @@ public class HelpActivity extends AppCompatActivity {
                 final String smartLogin_on_str = getResources().getString(R.string.smartLogin_tips_on) + "已为您自动登陆："+preferences.getInt("autoFrequency",0)+"次\n";
                 tv_smartLogin.setText(sw_smartLogin.isChecked()?smartLogin_on_str:getString(R.string.smartLogin_tips_off));
                 sw_smartLogin.setEnabled(preferences.getBoolean("enableAutoSave", true));
+
+                /*更新开机自启相关显示*/
+                sw_bootLogin.setChecked( preferences.getBoolean("enableBootLogin",false) );   // 默认关闭
+
+                /*更新网络变化自动登录相关显示*/
+                sw_netchangeLogin.setChecked( preferences.getBoolean("enableNetChangeLogin",false) );   // 默认关闭
+                sw_netchangeLogin.setEnabled(false);
 
                 tv_oneTouch_caption.setText("一键登录已为您快速登录："+preferences.getInt("oneTouchFrequency",0)+"次\n");
             }
@@ -126,6 +137,39 @@ public class HelpActivity extends AppCompatActivity {
             }
         });
 
+
+        sw_bootLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = preferences.edit();
+                if(isChecked)
+                {
+                    editor.putBoolean("enableBootLogin", true);
+                }
+                else
+                {
+                    editor.putBoolean("enableBootLogin", false);
+                }
+                editor.apply();
+            }
+        });
+
+        sw_netchangeLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = preferences.edit();
+                if(isChecked)
+                {
+                    editor.putBoolean("enableNetChangeLogin", true);
+                }
+                else
+                {
+                    editor.putBoolean("enableNetChangeLogin", false);
+                }
+                editor.apply();
+            }
+        });
+
         btn_oneTouch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,8 +189,4 @@ public class HelpActivity extends AppCompatActivity {
         });
     }
 
-    protected void installShortCut()
-    {
-
-    }
 }

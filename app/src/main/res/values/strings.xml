@@ -2,8 +2,8 @@
     <!--activity_main.xml-->
     <string name="app_name">朕的网络</string>
     <string name="project_name">SudaLogin</string>
-    <string name="version">v1.4-beta</string>
-    <string name="caption">也许是最好用的苏大网关登录APP\n</string>
+    <string name="version">v1.5-beta</string>
+    <string name="caption">也许是最好用的苏大网关APP\n</string>
 
     <string name="username_hint">账号</string>
     <string name="username_error">账号不能为空</string>
@@ -33,7 +33,7 @@
     <string name="help_info">漫游免认证：网关将记忆MAC地址，当天无需重复登录。\n</string>
 
     <string name="features_title">\n特性</string>
-    <string name="features_info">自动记忆：自动记忆账户信息及设置；\n智能登录：记录使用情况，自动登录；\n一键登录：添加桌面快捷方式；\n </string>
+    <string name="features_info">自动记忆：自动记忆账户信息及设置；\n智能登录：记录使用情况，自动登录；\n一键登录：添加桌面快捷方式；\n开机启动：开机自动登网关（需权限）；\n </string>
 
     <string name="autoSave_title">自动记忆</string>
     <string name="autoSave_caption">自动记忆说明</string>
@@ -45,13 +45,23 @@
     <string name="smartLogin_tips_on">智能登录已开启\n</string>
     <string name="smartLogin_tips_off">智能登录已关闭，请手动点击登录按钮\n</string>
 
+    <string name="bootLogin_title">开机启动</string>
+    <string name="bootLogin_caption">开机启动，自动登录网关\n</string>
+    <string name="bootLogin_tips_on">开机启动已开启\n</string>
+    <string name="bootLogin_tips_off">开机启动已关闭，请手动点击登录按钮\n</string>
+
+    <string name="netchangeLogin_title">网络变化感知</string>
+    <string name="netchangeLogin_caption">网络变化感知开发中\n</string>
+    <string name="netchangeLogin_tips_on">网络变化感知已开启\n</string>
+    <string name="netchangeLogin_tips_off">网络变化感知已关闭，请手动点击登录按钮\n</string>
+
     <string name="oneTouchLogin_title">一键登录</string>
     <string name="oneTouchLogin_caption">一键登录说明</string>
     <string name="oneTouchLogin_install">创建一键登录</string>
     <string name="oneTouchLogin_installing">已创建一键登录</string>
 
     <string name="updates_title">\n更新日志</string>
-    <string name="updates_info">v1.4-beta_build20170331\n  1. 新增快捷功能“一键登录”；\n  2. 细节优化；\n  3. Bug Fixes；\n\n  获取更新： https://github.com/HearyShen/SudaLogin/releases\n</string>
+    <string name="updates_info">v1.5-beta_build20170407\n  1. 新功能“开机自启”，开机自动搞定，解放双手！；\n  2. 细节优化；\n  3. Bug Fixes；\n\n  获取更新： https://github.com/HearyShen/SudaLogin/releases\n</string>
 
     <string name="joiner_title">\n冠名及配图</string>
     <string name="joiner_info">大作家：喵大人颜值高任性还挑食！\n</string>

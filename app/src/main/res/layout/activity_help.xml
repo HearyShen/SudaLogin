@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/project_name"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:textColor="@android:color/background_dark"
                 android:textSize="36sp"
                 android:textStyle="bold" />
@@ -116,6 +117,32 @@
                 android:layout_height="wrap_content"
                 android:text="@string/smartLogin_caption" />
 
+            <Switch
+                android:id="@+id/sw_bootLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bootLogin_title"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_bootLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bootLogin_caption" />
+
+            <Switch
+                android:id="@+id/sw_netchangeLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/netchangeLogin_title"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_netchangeLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/netchangeLogin_caption" />
+
             <TextView
                 android:id="@+id/tv_oneTouch"
                 android:layout_width="match_parent"
@@ -134,8 +161,7 @@
                 android:id="@+id/btn_oneTouch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:elevation="0dp"
+                android:layout_gravity="end"
                 android:text="@string/oneTouchLogin_install"
                 android:textAlignment="center"
                 android:textAllCaps="false"
