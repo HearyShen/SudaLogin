@@ -33,7 +33,7 @@ public class NetChangeReceiver extends BroadcastReceiver {
         preferences = context.getSharedPreferences("SudaLoginDev", Context.MODE_PRIVATE);
 
         try {
-            if( preferences.getBoolean("enableNetChangeLogin", false))
+            if( preferences.getBoolean("enableNetChangeLogin", false) && !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false))
             {
 //                Toast.makeText(context, "Connectivity change received!", Toast.LENGTH_SHORT).show();
                 smartLogin(context);
@@ -81,7 +81,7 @@ public class NetChangeReceiver extends BroadcastReceiver {
                             public void run() {
                                 logoutByPost();
                                 String result_str = loginByPost(preferences.getString("username",""), preferences.getString("password",""), preferences.getString("enableMacAuth","0"));
-                                Toast.makeText(context, result_str, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, result_str, Toast.LENGTH_SHORT).show();
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putInt("netChangeLoginFrequency",preferences.getInt("netChangeLoginFrequency",0)+1);
                                 editor.apply();
