@@ -14,9 +14,9 @@
 
 - **Auto Save** :  save userID, password and configuration automatically.
 - **Smart Login** :  automatically login(when launching) if current account has been used frequently.
+   - **BootLogin** :  now the APP is able to launch automatically when your device boots up; ***[NEW]***
+   - **NetworkSense** :  sense interrupts in connection(eg. 4G to WiFi) and keep your login status seamlessly; ***[NEW]***
 - **OneTouch** :  create a shortcut and quickly login without even rendering GUI window.
-- **BootLogin** :  now the APP is able to launch automatically when your device boots up; ***[NEW]***
-- **NetworkSense** :  sense interrupts in connection(eg. 4G to WiFi) and keep your login status seamlessly; ***[NEW]***
 
 ### 1.2  Requirements
 
