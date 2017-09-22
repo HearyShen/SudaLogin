@@ -8,7 +8,7 @@
 
 ## 0 Caption
 
-- A tiny Andorid app that brings logging into the Gatway of Soochow University(mainland, China) more easily.
+- A tiny Andorid app that brings logging into the Gateway of Soochow University(mainland, China) more easily.
 
 
 
